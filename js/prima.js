@@ -9,19 +9,16 @@ var InitialView = Backbone.View.extend({
 	submitForm : function(){
 		var reservedseats=JSON.parse(localStorage.getItem('ReservedSeats'));
 		var availableSeats=120;
-		// var numberRegex=new RegExp('^[0-9]*$')
+		var selectedNumberOfSeats=$('#seats').val();
 		if(reservedseats!=null)
 			availableSeats=TotalSeats-reservedseats.length;
 		if(!$('#name').val()){
 			$(".requiredElements").html("Name is required");
 		}
-		else if(!$('#seats').val()){
+		else if(!selectedNumberOfSeats){
 			$(".requiredElements").html("Number of seats is required");
 		}
-		// else if(!numberRegex.test($('#seats').val())) {
-		// 	$(".requiredElements").html("Please enter a valid number");
-		// }
-		else if(parseInt($('#seats').val())>availableSeats){
+		else if(parseInt(selectedNumberOfSeats)>availableSeats){
 			$(".requiredElements").html("You can only select "+availableSeats+" seats")
 		}
 		else
