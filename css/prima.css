@@ -25,6 +25,8 @@
 #table-screen{
 	margin-top: 50px;
 	margin-left:50px;
+	border-spacing: 10px;
+  	border-collapse: separate;
 }
 #table-screen-row{
 	margin-top:10px;
