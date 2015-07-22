@@ -21,7 +21,7 @@ var InitialView = Backbone.View.extend({
 		// else if(!numberRegex.test($('#seats').val())) {
 		// 	$(".requiredElements").html("Please enter a valid number");
 		// }
-		else if(reservedseats!=null && parseInt($('#seats').val())>availableSeats){
+		else if(parseInt($('#seats').val())>availableSeats){
 			$(".requiredElements").html("You can only select "+availableSeats+" seats")
 		}
 		else
