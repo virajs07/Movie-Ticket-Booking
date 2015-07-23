@@ -2,13 +2,32 @@ var BookedSeats = [];
 var Rows=["A","B","C","D","E","F","G","H","I","J"];
 var Columns=12;
 var TotalSeats=Rows.length*Columns;
+
+function convertIntToSeatNumbers(seats){
+	var bookedSeats="";
+	_.each(seats,function(seat){
+		var row=Rows[parseInt(parseInt(seat)/12)];
+		var column=parseInt(seat)%12;
+		if(column==0){
+			column=12;
+		}
+		if(_.indexOf(seats,seat)==seats.length-1){
+			bookedSeats=bookedSeats+row+column;
+		}
+		else{
+			bookedSeats=bookedSeats+row+column+",";
+		}
+	});
+	return bookedSeats;
+}
+
 var InitialView = Backbone.View.extend({
 	events:{
 		"click #submitSelection": "submitForm"
 	},
 	submitForm : function(){
 		var reservedseats=JSON.parse(localStorage.getItem('ReservedSeats'));
-		var availableSeats=120;
+		var availableSeats=TotalSeats;
 		var selectedNumberOfSeats=$('#seats').val();
 		if(reservedseats!=null)
 			availableSeats=TotalSeats-reservedseats.length;
@@ -28,7 +47,6 @@ var InitialView = Backbone.View.extend({
 		}
 	}
 });
-
 var initialView = new InitialView({el:$('.selectionForm')});
 
 var ScreenUI=Backbone.View.extend({
@@ -62,25 +80,12 @@ var ScreenUI=Backbone.View.extend({
 		}
 	},
 	updateTicketInfo:function(){
-		var bookedSeats="";
-		_.each(BookedSeats,function(bookedSeat){
-			var row=Rows[parseInt(parseInt(bookedSeat)/12)];
-			var column=parseInt(bookedSeat)%12;
-			if(column==0){
-				column=12;
-			}
-			if(_.indexOf(BookedSeats,bookedSeat)==BookedSeats.length-1){
-				bookedSeats=bookedSeats+row+column;
-			}
-			else{
-				bookedSeats=bookedSeats+row+column+",";
-			}
-		});
+		var bookedSeats=convertIntToSeatNumbers(BookedSeats);
 		$("#ticket-sold-info").append("<tr><td>"+$('#name').val()+"</td><td>"+$('#seats').val()+"</td><td>"+bookedSeats+"</td></tr>");
 	},
 	bookTickets:function(){
 		if(BookedSeats.length==parseInt($('#seats').val())) {
-			$(".requiredElements").text("");
+			$(".error").text("");
 			var reservedseats=JSON.parse(localStorage.getItem('ReservedSeats'))||[];
 			_.each(BookedSeats,function(bookedSeat){
 				reservedseats.push(bookedSeat);
@@ -93,9 +98,8 @@ var ScreenUI=Backbone.View.extend({
 			window.location.reload();
 		}
 		else{
-			$(".requiredElements").text("Please select exactly "+ $('#seats').val()+" seats");
-		}
-		
+			$(".error").html("Please select exactly "+ $('#seats').val()+" seats");
+		}		
 	},
 });
 
@@ -110,20 +114,7 @@ var TicketInfo=Backbone.View.extend({
 		_.each(json,function(key,value){
 			var name=value;
 			var number=key.length;
-			var bookedSeats="";
-			_.each(key,function(seat){
-				var row=Rows[parseInt(parseInt(seat)/12)];
-				var column=parseInt(seat)%12;
-				if(column==0){
-					column==12;
-				}
-				if(_.indexOf(key,seat)==key.length-1){
-				bookedSeats=bookedSeats+row+column;
-				}
-				else{
-					bookedSeats=bookedSeats+row+column+",";
-				}
-			});
+			var bookedSeats=convertIntToSeatNumbers(key);
 			items.push({names:name,numbers:number,seats:bookedSeats});
 		});
 		var data={"items":items};
