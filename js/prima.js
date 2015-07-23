@@ -58,7 +58,7 @@ var ScreenUI=Backbone.View.extend({
 
 		}
 		else if($("#"+id).attr('src')=='img/booked-seat.png'){
-			BookedSeats=_.without(BookedSeats,_.findWhere(BookedSeats,id));
+			BookedSeats=_.without(BookedSeats,id);
 			$("#"+id).attr('src','img/empty-seat.png');
 		}
 	},
