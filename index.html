@@ -26,7 +26,7 @@
 				<button type="button" class="btn btn-primary btn-lg submitBtn" id="submitSelection">Start Selecting</button>
 			</div>
 			<div class="text-center">
-				<font color="Red"><label class="requiredElements"></label></font>
+				<font color="Red"><label class="error"></label></font>
 			</div>
 
 		</form>
@@ -56,9 +56,9 @@
 		    					<td><%=row%></td>
 		    					<% _.each(_.range(1,columns+1),function(column){ %>
 		    						<% var id=(_.indexOf(rows,row)*columns)+column; var reservedSeats=JSON.parse(localStorage.getItem('ReservedSeats')); if(reservedSeats!=null && _.indexOf(reservedSeats,String(id))!=-1) {%>
-			            				<td><img src="img/reserved-seat.png" class="reserved-seat" id="<%=id%>"/></td>
+			            				<td><img class="reserved-seat" id="<%=id%>"/></td>
 			            			<% }else {%>
-			            				<td><img src="img/empty-seat.png" class="empty-seat" id="<%=id%>"/></td>		       
+			            				<td><img class="empty-seat" id="<%=id%>"/></td>		       
 			            			<% }}) %>
 	    					</tr>
 	    				<% }) %>
@@ -70,13 +70,13 @@
 				<button type="button" class="btn btn-primary btn-lg submitBtn" id="confirmSelection">Confirm Selection</button>
 				<div class="screen-map">
 				<label for="empty-seat-map">Selected Seat</label>
-				<img src="img/booked-seat.png" class="booked-seat" id="booked-seat-map">
+				<img src="img/booked-seat.png" class="booked-seat-map" id="booked-seat-map">
 				<br/>
 				<label for="">Reserved Seat</label>
-				<img src="img/reserved-seat.png" class="reserved-seat" id="reserved-seat-map">
+				<img src="img/reserved-seat.png" class="reserved-seat-map" id="reserved-seat-map">
 				<br/>
 				<label for="">Empty Seat</label>
-				<img src="img/empty-seat.png" class="empty-seat" id="empty-seat-map">
+				<img src="img/empty-seat.png" class="empty-seat-map" id="empty-seat-map">
 			</div>	
 			</div>
 					

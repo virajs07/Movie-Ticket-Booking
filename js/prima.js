@@ -13,17 +13,17 @@ var InitialView = Backbone.View.extend({
 		if(reservedseats!=null)
 			availableSeats=TotalSeats-reservedseats.length;
 		if(!$('#name').val()){
-			$(".requiredElements").html("Name is required");
+			$(".error").html("Name is required");
 		}
 		else if(!selectedNumberOfSeats){
-			$(".requiredElements").html("Number of seats is required");
+			$(".error").html("Number of seats is required");
 		}
 		else if(parseInt(selectedNumberOfSeats)>availableSeats){
-			$(".requiredElements").html("You can only select "+availableSeats+" seats")
+			$(".error").html("You can only select "+availableSeats+" seats")
 		}
 		else
 		{
-			$(".requiredElements").html("");
+			$(".error").html("");
 			screenUI.showView();
 		}
 	}
@@ -33,8 +33,7 @@ var initialView = new InitialView({el:$('.selectionForm')});
 
 var ScreenUI=Backbone.View.extend({
 	events:{
-		"click .empty-seat":"toggleBookedSeat",
-		"click #back":"back",
+		"click .empty-seat,.booked-seat":"toggleBookedSeat",
 		"click #confirmSelection":"bookTickets"
 	},
 	initialize:function(){
@@ -51,15 +50,15 @@ var ScreenUI=Backbone.View.extend({
 		$(this.el).show();
 	},
 	toggleBookedSeat:function(event){
-		var id=event.currentTarget.id;
-		if($("#"+id).attr('src')=='img/empty-seat.png' && BookedSeats.length<$('#seats').val()){
-			BookedSeats.push(id);
-			$("#"+id).attr('src','img/booked-seat.png');
+		var id="#"+event.currentTarget.id;
+		if($(id).attr('class')=='empty-seat' && BookedSeats.length<$('#seats').val()){
+			BookedSeats.push(id.substr(1));
+			$(id).attr('class','booked-seat');
 
 		}
-		else if($("#"+id).attr('src')=='img/booked-seat.png'){
-			BookedSeats=_.without(BookedSeats,id);
-			$("#"+id).attr('src','img/empty-seat.png');
+		else if($(id).attr('class')=='booked-seat'){
+			BookedSeats=_.without(BookedSeats,id.substr(1));
+			$(id).attr('class','empty-seat');
 		}
 	},
 	updateTicketInfo:function(){

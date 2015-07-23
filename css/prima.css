@@ -37,11 +37,17 @@
 }
 .reserved-seat{
 	margin-left:4px;
+	content: url('../img/reserved-seat.png')
 }
-.empty-seat,.booked-seat{
+.empty-seat{
 	cursor: pointer;
+	content: url('../img/empty-seat.png')
 }
-.requiredElements{
+.booked-seat{
+	cursor: pointer;
+	content: url('../img/booked-seat.png')
+}
+.error{
   font-size: 20px;
   font-weight: 700;
   font-family: monospace;
