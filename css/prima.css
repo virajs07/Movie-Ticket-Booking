@@ -37,15 +37,16 @@
 }
 .reserved-seat{
 	margin-left:4px;
-	content: url('../img/reserved-seat.png')
+	/*content: '';*/
+    /*background: url('../img/reserved-seat.png');*/
 }
 .empty-seat{
 	cursor: pointer;
-	content: url('../img/empty-seat.png')
+	/*content: url('../img/empty-seat.png')*/
 }
 .booked-seat{
 	cursor: pointer;
-	content: url('../img/booked-seat.png')
+	content: url('../img/booked-seat.png');
 }
 .error{
   font-size: 20px;

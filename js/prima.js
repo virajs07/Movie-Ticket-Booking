@@ -71,11 +71,13 @@ var ScreenUI=Backbone.View.extend({
 		var id="#"+event.currentTarget.id;
 		if($(id).attr('class')=='empty-seat' && BookedSeats.length<$('#seats').val()){
 			BookedSeats.push(id.substr(1));
+			$(id).attr('src','img/booked-seat.png');
 			$(id).attr('class','booked-seat');
 
 		}
 		else if($(id).attr('class')=='booked-seat'){
 			BookedSeats=_.without(BookedSeats,id.substr(1));
+			$(id).attr('src','img/empty-seat.png');
 			$(id).attr('class','empty-seat');
 		}
 	},

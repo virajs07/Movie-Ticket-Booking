@@ -56,9 +56,9 @@
 		    					<td><%=row%></td>
 		    					<% _.each(_.range(1,columns+1),function(column){ %>
 		    						<% var id=(_.indexOf(rows,row)*columns)+column; var reservedSeats=JSON.parse(localStorage.getItem('ReservedSeats')); if(reservedSeats!=null && _.indexOf(reservedSeats,String(id))!=-1) {%>
-			            				<td><img class="reserved-seat" id="<%=id%>"/></td>
+			            				<td><img src="img/reserved-seat.png" class="reserved-seat" id="<%=id%>"/></td>
 			            			<% }else {%>
-			            				<td><img class="empty-seat" id="<%=id%>"/></td>		       
+			            				<td><img src="img/empty-seat.png" class="empty-seat" id="<%=id%>"/></td>		       
 			            			<% }}) %>
 	    					</tr>
 	    				<% }) %>
